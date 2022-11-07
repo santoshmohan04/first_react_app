@@ -5,8 +5,7 @@ class Template1 extends Component {
     return (
       <div className="App">
         <div className="p-5 bg-primary text-white text-center">
-          <h1>My First Bootstrap 5 Page</h1>
-          <p>Resize this responsive page to see the effect!</p>
+          <h1>React Apps</h1>
         </div>
 
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
