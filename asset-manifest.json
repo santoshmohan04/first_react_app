@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/santoshmohan04/first_react_app/static/css/main.5a3e041b.css",
+    "main.js": "/santoshmohan04/first_react_app/static/js/main.fb00ce06.js",
+    "static/js/787.624ad79f.chunk.js": "/santoshmohan04/first_react_app/static/js/787.624ad79f.chunk.js",
+    "index.html": "/santoshmohan04/first_react_app/index.html",
+    "main.5a3e041b.css.map": "/santoshmohan04/first_react_app/static/css/main.5a3e041b.css.map",
+    "main.fb00ce06.js.map": "/santoshmohan04/first_react_app/static/js/main.fb00ce06.js.map",
+    "787.624ad79f.chunk.js.map": "/santoshmohan04/first_react_app/static/js/787.624ad79f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5a3e041b.css",
+    "static/js/main.fb00ce06.js"
+  ]
+}
