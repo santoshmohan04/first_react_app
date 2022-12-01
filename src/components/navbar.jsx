@@ -12,7 +12,13 @@ class Navbar extends Component {
             </span>
           </a>
           <a className="nav-link" href="/temp1">
-            Bootstrap Template
+            Products List
+          </a>
+          <a className="nav-link" href="/weather">
+            Weather App
+          </a>
+          <a className="nav-link" href="/vatavaran">
+            Vatavaran
           </a>
         </div>
       </nav>

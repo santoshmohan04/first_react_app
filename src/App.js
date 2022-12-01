@@ -1,13 +1,15 @@
 import "./App.css";
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Counters from "./components/counters";
 import Navbar from "./components/navbar";
 import React, { Component } from "react";
-import Template1 from "./components/template1";
+import Weather from "./components/Weather";
+import Shopping from "./components/shopping";
+import Vatavaran from "./components/vatavaran";
 
 class App extends Component {
   state = {
@@ -93,7 +95,9 @@ class App extends Component {
                 />
               }
             />
-            <Route path="temp1" element={<Template1 />} />
+            <Route path="/temp1" element={<Shopping />} />
+            <Route path="/weather" element={<Weather />} />
+            <Route path="/vatavaran" element={<Vatavaran />} />
           </Routes>
         </main>
       </React.Fragment>
