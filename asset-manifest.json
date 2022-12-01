@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.css": "/santoshmohan04/first_react_app/static/css/main.5a3e041b.css",
-    "main.js": "/santoshmohan04/first_react_app/static/js/main.fb00ce06.js",
+    "main.css": "/santoshmohan04/first_react_app/static/css/main.c928b0b9.css",
+    "main.js": "/santoshmohan04/first_react_app/static/js/main.3ae92f00.js",
     "static/js/787.624ad79f.chunk.js": "/santoshmohan04/first_react_app/static/js/787.624ad79f.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/santoshmohan04/first_react_app/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
+    "static/media/bootstrap-icons.woff2?": "/santoshmohan04/first_react_app/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
     "index.html": "/santoshmohan04/first_react_app/index.html",
-    "main.5a3e041b.css.map": "/santoshmohan04/first_react_app/static/css/main.5a3e041b.css.map",
-    "main.fb00ce06.js.map": "/santoshmohan04/first_react_app/static/js/main.fb00ce06.js.map",
+    "main.c928b0b9.css.map": "/santoshmohan04/first_react_app/static/css/main.c928b0b9.css.map",
+    "main.3ae92f00.js.map": "/santoshmohan04/first_react_app/static/js/main.3ae92f00.js.map",
     "787.624ad79f.chunk.js.map": "/santoshmohan04/first_react_app/static/js/787.624ad79f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5a3e041b.css",
-    "static/js/main.fb00ce06.js"
+    "static/css/main.c928b0b9.css",
+    "static/js/main.3ae92f00.js"
   ]
 }
