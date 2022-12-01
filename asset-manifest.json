@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/santoshmohan04/first_react_app/static/css/main.c928b0b9.css",
-    "main.js": "/santoshmohan04/first_react_app/static/js/main.3ae92f00.js",
-    "static/js/787.624ad79f.chunk.js": "/santoshmohan04/first_react_app/static/js/787.624ad79f.chunk.js",
-    "static/media/bootstrap-icons.woff?": "/santoshmohan04/first_react_app/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
-    "static/media/bootstrap-icons.woff2?": "/santoshmohan04/first_react_app/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
-    "index.html": "/santoshmohan04/first_react_app/index.html",
-    "main.c928b0b9.css.map": "/santoshmohan04/first_react_app/static/css/main.c928b0b9.css.map",
-    "main.3ae92f00.js.map": "/santoshmohan04/first_react_app/static/js/main.3ae92f00.js.map",
-    "787.624ad79f.chunk.js.map": "/santoshmohan04/first_react_app/static/js/787.624ad79f.chunk.js.map"
+    "main.css": "/first_react_app/static/css/main.46b0d5a6.css",
+    "main.js": "/first_react_app/static/js/main.18e1868b.js",
+    "static/js/787.624ad79f.chunk.js": "/first_react_app/static/js/787.624ad79f.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/first_react_app/static/media/bootstrap-icons.6959d0d983ee318f8880.woff",
+    "static/media/bootstrap-icons.woff2?": "/first_react_app/static/media/bootstrap-icons.b2e5aab643c6f0fd2da6.woff2",
+    "index.html": "/first_react_app/index.html",
+    "main.46b0d5a6.css.map": "/first_react_app/static/css/main.46b0d5a6.css.map",
+    "main.18e1868b.js.map": "/first_react_app/static/js/main.18e1868b.js.map",
+    "787.624ad79f.chunk.js.map": "/first_react_app/static/js/787.624ad79f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c928b0b9.css",
-    "static/js/main.3ae92f00.js"
+    "static/css/main.46b0d5a6.css",
+    "static/js/main.18e1868b.js"
   ]
 }
