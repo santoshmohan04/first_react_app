@@ -5,7 +5,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar bg-primary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/#">
+          <a className="navbar-brand" href="/">
             Counter App{" "}
             <span className="badge rounded-pill bg-secondary">
               {this.props.totalCounters}
@@ -19,6 +19,12 @@ class Navbar extends Component {
           </a>
           <a className="nav-link" href="/vatavaran">
             Vatavaran
+          </a>
+          <a className="nav-link" href="/ner">
+            Ner Tagging
+          </a>
+          <a className="nav-link" href="/news">
+            News
           </a>
         </div>
       </nav>

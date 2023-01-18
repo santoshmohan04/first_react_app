@@ -33,6 +33,11 @@
   background: #aaa;
 }
 
+.form-floating > .form-select {
+  padding-top: 0rem !important;
+  padding-bottom: 0rem !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
