@@ -11,9 +11,9 @@ class Navbar extends Component {
               {this.props.totalCounters}
             </span>
           </a>
-          <a className="nav-link" href="/temp1">
+          {/*<a className="nav-link" href="/temp1">
             Products List
-          </a>
+          </a>*/}
           <a className="nav-link" href="/weather">
             Weather App
           </a>

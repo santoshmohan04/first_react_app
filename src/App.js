@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Route, Routes, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Counters from "./components/counters";
 import Navbar from "./components/navbar";
@@ -85,7 +85,7 @@ class App extends Component {
         <main className="container-fluid">
           <Routes>
             <Route
-              path="/"
+              path={"/"}
               element={
                 <Counters
                   counters={this.state.counters}
@@ -97,11 +97,11 @@ class App extends Component {
                 />
               }
             />
-            <Route path="/temp1" element={<Shopping />} />
-            <Route path="/weather" element={<Weather />} />
-            <Route path="/vatavaran" element={<Vatavaran />} />
-            <Route path="/ner" element={<NerTagging />} />
-            <Route path="/news" element={<NewsData />} />
+            <Route path={"/temp1"} element={<Shopping />} />
+            <Route path={"/weather"} element={<Weather />} />
+            <Route path={"/vatavaran"} element={<Vatavaran />} />
+            <Route path={"/ner"} element={<NerTagging />} />
+            <Route path={"/news"} element={<NewsData />} />
           </Routes>
         </main>
       </React.Fragment>

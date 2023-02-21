@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./vatavaran.css";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import dayjs from "dayjs";
 
 function Vatavaran() {
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState("");
   const [showA, setShowA] = useState(false);
   const toggleShowA = () => setShowA(true);
   const [weather, setWeatherData] = useState([]);
@@ -16,14 +15,22 @@ function Vatavaran() {
   const [cityData, setCityWeather] = useState([]);
   const [cityName, setCityName] = useState("");
   const APIKEY = "d4594364698122bfd1c4b3eb5f2ff19f";
-  const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   const handleDate = (item) => {
-    if(item){
-      const d = new Date(item*1000);
+    if (item) {
+      const d = new Date(item * 1000);
       let day = weekday[d.getDay()];
       let day_number = d.getDate();
-      return day.substring(0,3) + ' ' + day_number
+      return day.substring(0, 3) + " " + day_number;
     }
   };
 
@@ -31,17 +38,17 @@ function Vatavaran() {
   useEffect(() => {});
   async function getGeoLoc(e) {
     e.preventDefault();
-    if (form.city == "") {
+    if (form.city === "") {
       setAlertMsg("Enter City");
       toggleShowA();
     } else {
-      const data = await fetch(
+      await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${form.city}&units=metric&appid=${APIKEY}`
       )
         .then((res) => res.json())
         .then(
           (data) => {
-            if (data.cod != "404") {
+            if (data.cod !== "404") {
               setCityWeather((prevArray) => [...prevArray, data]);
               getCityWeather(data.name, data.coord.lat, data.coord.lon, e);
               e.target.reset();
@@ -59,13 +66,13 @@ function Vatavaran() {
   async function getCityWeather(city, latitude, longitude, e) {
     e.preventDefault();
     if (city) {
-      const data = await fetch(
+      await fetch(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${APIKEY}`
       )
         .then((res) => res.json())
         .then(
           (data) => {
-            if (data.cod != "404") {
+            if (data.cod !== "404") {
               setCityName(city);
               setWeatherData(data);
               //   console.log("data ??? ", data);
@@ -84,7 +91,7 @@ function Vatavaran() {
     let name = e.target.name;
     let value = e.target.value;
 
-    if (name == "city") {
+    if (name === "city") {
       setForm({ ...form, city: value });
     }
   };
@@ -95,52 +102,58 @@ function Vatavaran() {
     setWeatherData([]);
   };
 
-  const List_city = cityData.filter(post => {
-    if (query === '') {
-      return post;
-    } else if (post.name.toLowerCase().includes(query.toLowerCase())) {
-      return post;
-    }
-  }).map((t) => (
-    <ul key={t.id}>
-      <li>
-        {t.name} - {t.main.temp}
-        <sup>o</sup>C {t.weather.main}
-        <img
-          src={
-            "http://openweathermap.org/img/wn/" +
-            `${t.cod != 404 ? t.weather[0].icon : null}` +
-            ".png"
-          }
-          alt={t.weather[0].main}
-          width="50"
-          height="50"
-        />
-        <div style={{ float: "right" }}>
-          <span
-            className="pointer"
-            onClick={(e) => getCityWeather(t.name, t.coord.lat, t.coord.lon, e)}
-          >
-            <i className="bi bi-arrow-repeat"></i>
-          </span>
-          <span className="pointer pl-10">X</span>
-        </div>
-        <hr />
-      </li>
-    </ul>
-  ));
+  const List_city = cityData
+    .filter((post) => {
+      if (query === "") {
+        return post;
+      } else if (post.name.toLowerCase().includes(query.toLowerCase())) {
+        return post;
+      }
+    })
+    .map((t) => (
+      <ul key={t.id}>
+        <li>
+          {t.name} - {t.main.temp}
+          <sup>o</sup>C {t.weather.main}
+          <img
+            src={
+              "http://openweathermap.org/img/wn/" +
+              `${t.cod !== 404 ? t.weather[0].icon : null}` +
+              ".png"
+            }
+            alt={t.weather[0].main}
+            width="50"
+            height="50"
+          />
+          <div style={{ float: "right" }}>
+            <span
+              className="pointer"
+              onClick={(e) =>
+                getCityWeather(t.name, t.coord.lat, t.coord.lon, e)
+              }
+            >
+              <i className="bi bi-arrow-repeat"></i>
+            </span>
+            <span className="pointer pl-10">X</span>
+          </div>
+          <hr />
+        </li>
+      </ul>
+    ));
 
   const daily_weather = weather.daily?.map((t) => (
     <div className="col" style={{ display: "inline-block" }} key={t.sunrise}>
       {handleDate(t.dt)}
-        <img
-            src={
-                "http://openweathermap.org/img/wn/" + `${t.weather[0].icon}` + "@4x.png"
-            }
-            alt={t.weather[0].description}
-            width="80"
-            height="80"
-        />
+      <img
+        src={
+          "http://openweathermap.org/img/wn/" +
+          `${t.weather[0].icon}` +
+          "@4x.png"
+        }
+        alt={t.weather[0].description}
+        width="80"
+        height="80"
+      />
       {t.temp.max} <sup>o</sup>C
     </div>
   ));
@@ -168,17 +181,17 @@ function Vatavaran() {
           <div className="col-4" id="cities">
             <form onSubmit={(e) => getGeoLoc(e)}>
               <div className="input-group">
-              <input
-                type="text"
-                required
-                name="city"
-                className="form-control"
-                placeholder="Type City Name"
-                onChange={(e) => handleChange(e)}
-              />
-              <button className="btn btn-primary" type="submit">
-                <i className="bi bi-plus-lg"></i>
-              </button>
+                <input
+                  type="text"
+                  required
+                  name="city"
+                  className="form-control"
+                  placeholder="Type City Name"
+                  onChange={(e) => handleChange(e)}
+                />
+                <button className="btn btn-primary" type="submit">
+                  <i className="bi bi-plus-lg"></i>
+                </button>
               </div>
             </form>
             <hr />
@@ -186,7 +199,7 @@ function Vatavaran() {
               type="search"
               className="form-control"
               placeholder="Recent Locations"
-              onChange={event => setQuery(event.target.value)}
+              onChange={(event) => setQuery(event.target.value)}
             />
             <hr />
             {List_city}
@@ -204,7 +217,13 @@ function Vatavaran() {
               <React.Fragment>
                 <h3 className="text-primary">
                   {cityName}
-                  <span className="pointer" style={{ float: "right" }} onClick={(e) => getCityWeather(cityName, weather.lat, weather.lon, e)}>
+                  <span
+                    className="pointer"
+                    style={{ float: "right" }}
+                    onClick={(e) =>
+                      getCityWeather(cityName, weather.lat, weather.lon, e)
+                    }
+                  >
                     <i className="bi bi-arrow-repeat"></i>
                   </span>
                 </h3>

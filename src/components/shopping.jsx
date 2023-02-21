@@ -20,7 +20,7 @@ function Shopping() {
         <img
           className="card-img-top"
           src={product.thumbnail}
-          alt="Card image"
+          alt="product"
           style={{ width: "100%" }}
         />
         <div className="card-body">
