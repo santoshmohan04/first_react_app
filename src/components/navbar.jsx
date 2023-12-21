@@ -26,9 +26,9 @@ class Navbar extends Component {
               {this.props.totaltodo}
             </span>
           </a>
-          <a className="nav-link" href="/news">
+          {/* <a className="nav-link" href="/news">
             News
-          </a>
+          </a> */}
         </div>
       </nav>
     );
