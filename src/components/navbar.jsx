@@ -20,8 +20,11 @@ class Navbar extends Component {
           <a className="nav-link" href="/vatavaran">
             Vatavaran
           </a>
-          <a className="nav-link" href="/ner">
-            Ner Tagging
+          <a className="nav-link" href="/todo">
+            To Do List{" "}
+            <span className="badge rounded-pill bg-secondary">
+              {this.props.totaltodo}
+            </span>
           </a>
           <a className="nav-link" href="/news">
             News

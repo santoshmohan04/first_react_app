@@ -4,7 +4,7 @@ function DisplayWeather(props) {
   const { data } = props;
   const iconurl =
     "http://openweathermap.org/img/wn/" +
-    `${data.cod !== 404 ? data.weather[0].icon : null}` +
+    `${data.cod !== 404 ? data.weather[0].icon : null}@4x` +
     ".png";
   return (
     <div className="displayweather">
@@ -12,7 +12,7 @@ function DisplayWeather(props) {
         <React.Fragment>
           <div className="maincard">
             <span className="cardtitle">
-              {data.name} , {data.sys.country}. Weather
+              {data.name} , {data.sys.country} Weather
             </span>
             <span className="cardsubtitle">
               As of {new Date().toLocaleTimeString()}
@@ -75,45 +75,49 @@ function DisplayWeather(props) {
 
             <div className="section2">
               <table>
-                <tr>
-                  <td>
-                    <h4>Wind</h4>
-                  </td>
-                  <td>
-                    <span>{Math.floor((data.wind.speed * 18) / 5)} km/hr</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h4>Wind Direction</h4>
-                  </td>
-                  <td>
-                    <span>
-                      {data.wind.deg}
-                      <sup>o</sup> deg
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h4>Sunrise</h4>
-                  </td>
-                  <td>
-                    <span>
-                      {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h4>Sunset</h4>
-                  </td>
-                  <td>
-                    <span>
-                      {new Date(data.sys.sunset * 1000).toLocaleTimeString()}
-                    </span>
-                  </td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td>
+                      <h4>Wind</h4>
+                    </td>
+                    <td>
+                      <span>
+                        {Math.floor((data.wind.speed * 18) / 5)} km/hr
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4>Wind Direction</h4>
+                    </td>
+                    <td>
+                      <span>
+                        {data.wind.deg}
+                        <sup>o</sup> deg
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4>Sunrise</h4>
+                    </td>
+                    <td>
+                      <span>
+                        {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <h4>Sunset</h4>
+                    </td>
+                    <td>
+                      <span>
+                        {new Date(data.sys.sunset * 1000).toLocaleTimeString()}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>

@@ -3,66 +3,69 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Route, Routes } from "react-router-dom";
-
+import { v4 as uuidv4 } from "uuid";
 import Counters from "./components/counters";
 import Navbar from "./components/navbar";
 import React, { Component } from "react";
 import Weather from "./components/Weather";
 import Shopping from "./components/shopping";
 import Vatavaran from "./components/vatavaran";
-import NerTagging from "./components/nertagging";
+import TodoList from "./components/todo";
 import NewsData from "./components/news";
 
 class App extends Component {
   state = {
-    counters: [
-      { id: 1, value: 4 },
-      { id: 2, value: 20 },
-      { id: 3, value: 3 },
-      { id: 4, value: 16 },
-      { id: 5, value: 2 },
-    ],
+    counters: [],
+    todolist: this.getTodos(),
   };
 
-  myStyles = {
-    fontSize: 18,
-    fontWeight: "bold",
-  };
+  getTodos() {
+    // getting stored items
+    const temp = localStorage.getItem("todos");
+    const savedTodos = JSON.parse(temp);
+    return savedTodos || [];
+  }
+
+  // This function will called only once
 
   handleIncrement = (counter) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
     counters[index].value++;
-    this.setState({ counters });
+    this.setState({ ...this.state, counters: counters });
   };
 
   handleDecrement = (counter) => {
+    console.log(counter);
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
-    counters[index].value--;
-    this.setState({ counters });
+    if (counters[index].value > 0) {
+      counters[index].value--;
+      this.setState({ ...this.state, counters: counters });
+    } else {
+      return;
+    }
   };
 
   handleReset = () => {
-    const counters = this.state.counters.map((c) => {
-      c.value = 0;
-      return c;
-    });
-    this.setState({ counters });
+    this.setState({ ...this.state, counters: [] });
   };
 
   handleDelete = (counterId) => {
     const counters = this.state.counters.filter((c) => c.id !== counterId);
-    this.setState({ counters });
+    this.setState({ ...this.state, counters: counters });
   };
 
   handleAdd = () => {
-    let getId = this.state.counters[this.state.counters.length - 1].id;
-    let content_id = getId + 1;
-    const counters = [...this.state.counters, { id: content_id, value: 2 }];
-    this.setState({ counters });
+    let content_id = uuidv4();
+    const counters = [...this.state.counters, { id: content_id, value: 0 }];
+    this.setState({ ...this.state, counters: counters });
+  };
+
+  handleTotalList = (data) => {
+    this.setState({ ...this.state, todolist: data });
   };
 
   renderTags() {
@@ -80,7 +83,8 @@ class App extends Component {
     return (
       <React.Fragment>
         <Navbar
-          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
+          totalCounters={this.state.counters.length}
+          totaltodo={this.state.todolist.length}
         />
         <main className="container-fluid">
           <Routes>
@@ -100,7 +104,10 @@ class App extends Component {
             <Route path={"/temp1"} element={<Shopping />} />
             <Route path={"/weather"} element={<Weather />} />
             <Route path={"/vatavaran"} element={<Vatavaran />} />
-            <Route path={"/ner"} element={<NerTagging />} />
+            <Route
+              path={"/todo"}
+              element={<TodoList getTotalList={this.handleTotalList} />}
+            />
             <Route path={"/news"} element={<NewsData />} />
           </Routes>
         </main>

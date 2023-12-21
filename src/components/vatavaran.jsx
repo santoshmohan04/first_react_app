@@ -4,16 +4,16 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
 function Vatavaran() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(null);
   const [showA, setShowA] = useState(false);
   const toggleShowA = () => setShowA(true);
   const [weather, setWeatherData] = useState([]);
   const [form, setForm] = useState({
-    city: "",
+    city: null,
   });
   const [alertMsg, setAlertMsg] = useState([]);
-  const [cityData, setCityWeather] = useState([]);
-  const [cityName, setCityName] = useState("");
+  let [cityData, setCityWeather] = useState([]);
+  let [cityName, setCityName] = useState(null);
   const APIKEY = "d4594364698122bfd1c4b3eb5f2ff19f";
   const weekday = [
     "Sunday",
@@ -38,7 +38,7 @@ function Vatavaran() {
   useEffect(() => {});
   async function getGeoLoc(e) {
     e.preventDefault();
-    if (form.city === "") {
+    if (!form.city) {
       setAlertMsg("Enter City");
       toggleShowA();
     } else {
@@ -75,7 +75,6 @@ function Vatavaran() {
             if (data.cod !== "404") {
               setCityName(city);
               setWeatherData(data);
-              //   console.log("data ??? ", data);
             } else {
               setAlertMsg(data.message);
               toggleShowA();
@@ -102,9 +101,26 @@ function Vatavaran() {
     setWeatherData([]);
   };
 
+  const removeCity = (city_name, e) => {
+    e.preventDefault();
+    cityData = cityData.filter((t) => t.name !== city_name);
+    cityName = null;
+    setCityName(cityName);
+    setCityWeather(cityData);
+    setWeatherData([]);
+    if (cityData.length > 0) {
+      getCityWeather(
+        cityData[0].name,
+        cityData[0].coord.lat,
+        cityData[0].coord.lon,
+        e
+      );
+    }
+  };
+
   const List_city = cityData
     .filter((post) => {
-      if (query === "") {
+      if (!query) {
         return post;
       } else if (post.name.toLowerCase().includes(query.toLowerCase())) {
         return post;
@@ -113,28 +129,37 @@ function Vatavaran() {
     .map((t) => (
       <ul key={t.id}>
         <li>
-          {t.name} - {t.main.temp}
-          <sup>o</sup>C {t.weather.main}
-          <img
-            src={
-              "http://openweathermap.org/img/wn/" +
-              `${t.cod !== 404 ? t.weather[0].icon : null}` +
-              ".png"
-            }
-            alt={t.weather[0].main}
-            width="50"
-            height="50"
-          />
-          <div style={{ float: "right" }}>
-            <span
-              className="pointer"
-              onClick={(e) =>
-                getCityWeather(t.name, t.coord.lat, t.coord.lon, e)
-              }
-            >
-              <i className="bi bi-arrow-repeat"></i>
-            </span>
-            <span className="pointer pl-10">X</span>
+          <div className="d-flex align-items-center justify-content-between">
+            <div>
+              {t.name} - {t.main.temp}
+              <sup>o</sup>C {t.weather.main}
+              <img
+                src={
+                  "http://openweathermap.org/img/wn/" +
+                  `${t.cod !== 404 ? t.weather[0].icon : null}` +
+                  ".png"
+                }
+                alt={t.weather[0].main}
+                width="50"
+                height="50"
+              />
+            </div>
+            <div>
+              <span
+                className="pointer"
+                onClick={(e) =>
+                  getCityWeather(t.name, t.coord.lat, t.coord.lon, e)
+                }
+              >
+                <i className="bi bi-arrow-repeat"></i>
+              </span>
+              <span
+                className="pointer pl-10"
+                onClick={(e) => removeCity(t.name, e)}
+              >
+                <i className="bi bi-trash text-danger"></i>
+              </span>
+            </div>
           </div>
           <hr />
         </li>
