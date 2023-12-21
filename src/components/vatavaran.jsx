@@ -120,10 +120,10 @@ function Vatavaran() {
 
   const List_city = cityData
     .filter((post) => {
-      if (!query) {
+      if (!query || post.name.toLowerCase().includes(query.toLowerCase())) {
         return post;
-      } else if (post.name.toLowerCase().includes(query.toLowerCase())) {
-        return post;
+      } else {
+        return null;
       }
     })
     .map((t) => (
