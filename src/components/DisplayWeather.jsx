@@ -1,5 +1,6 @@
 import React from "react";
 import "./displayweather.css";
+
 function DisplayWeather(props) {
   const { data } = props;
   const iconurl =

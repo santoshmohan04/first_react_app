@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./todo.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, removeTodo, updateTodo, completeTodo } from "../redux";
 
-export default function TodoList(props) {
+export default function TodoList() {
+  const currenttodos = useSelector(state => state.todos.todos);
+  const dispatch = useDispatch();
+
   const headerStyle = {
     padding: "20px 0",
     lineHeight: "1.5em",
@@ -10,7 +15,6 @@ export default function TodoList(props) {
 
   const [state, setState] = useState({
     title: "",
-    todos: getInitialTodos(),
     editing: false,
   });
 
@@ -30,44 +34,12 @@ export default function TodoList(props) {
     }
   };
 
-  useEffect(() => {
-    // storing todos items
-    const temp = JSON.stringify(state.todos);
-    localStorage.setItem("todos", temp);
-    props.getTotalList(state.todos);
-  }, [state.todos]);
-
-  function getInitialTodos() {
-    // getting stored items
-    const temp = localStorage.getItem("todos");
-    const savedTodos = JSON.parse(temp);
-    return savedTodos || [];
-  }
-
   const handleChange = (id) => {
-    setState(() => ({
-      ...state,
-      todos: state.todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      }),
-    }));
+    dispatch(completeTodo(id));
   };
 
   const delTodo = (id) => {
-    setState({
-      ...state,
-      todos: [
-        ...state.todos.filter((todo) => {
-          return todo.id !== id;
-        }),
-      ],
-    });
+    dispatch(removeTodo(id));
   };
 
   const addTodoItem = (title) => {
@@ -76,23 +48,19 @@ export default function TodoList(props) {
       title: title,
       completed: false,
     };
+    dispatch(addTodo(newTodo));
     setState({
       ...state,
       title: "",
-      todos: [...state.todos, newTodo],
     });
   };
 
   const setUpdate = (updatedTitle, id) => {
-    setState({
-      ...state,
-      todos: state.todos.map((todo) => {
-        if (todo.id === id) {
-          todo.title = updatedTitle;
-        }
-        return todo;
-      }),
-    });
+    const payload = {
+      id: id,
+      title: updatedTitle
+    }
+    dispatch(updateTodo(payload));
   };
 
   const handleEditing = () => {
@@ -126,7 +94,7 @@ export default function TodoList(props) {
 
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="todocontainer">
         <div className="inner">
           <div style={headerStyle}>
             <h1>todos</h1>
@@ -143,7 +111,7 @@ export default function TodoList(props) {
             <button className="input-submit">Submit</button>
           </form>
           <ul>
-            {state.todos.map((todo) => (
+            {currenttodos.map((todo) => (
               <li className={styles.item} key={todo.id}>
                 <div
                   onDoubleClick={handleEditing}

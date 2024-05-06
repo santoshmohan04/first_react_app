@@ -50,9 +50,9 @@ function Weather() {
   };
   return (
     <div className="weather">
-      <span className="title">Weather App</span>
+      <p className="title">Weather App</p>
       {form.alert ? <p className="text-danger">{form.alert}</p> : null}
-      <form>
+      <form className="d-flex justify-content-center">
         <input
           type="text"
           placeholder="city"
