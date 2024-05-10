@@ -2,18 +2,18 @@ import React from "react";
 import "./displayweather.css";
 
 function DisplayWeather(props) {
-  const { data } = props;
+  const { weatherdtls } = props;
   const iconurl =
-    "http://openweathermap.org/img/wn/" +
-    `${data.cod !== 404 ? data.weather[0].icon : null}@4x` +
+  process.env.REACT_APP_Weather_Icon_Url +
+    `${weatherdtls.cod !== 404 ? weatherdtls.weather[0].icon : null}@4x` +
     ".png";
   return (
     <div className="displayweather">
-      {data.cod !== 404 ? (
+      {weatherdtls.cod !== 404 ? (
         <React.Fragment>
           <div className="maincard">
             <span className="cardtitle">
-              {data.name} , {data.sys.country} Weather
+              {weatherdtls.name} , {weatherdtls.sys.country} Weather
             </span>
             <span className="cardsubtitle">
               As of {new Date().toLocaleTimeString()}
@@ -21,14 +21,14 @@ function DisplayWeather(props) {
 
             <h1>
               {" "}
-              {Math.floor(data.main.temp - 273.15)}
+              {Math.floor(weatherdtls.main.temp)}
               <sup>o</sup>
             </h1>
-            <span className="weather-main">{data.weather[0].main}</span>
+            <span className="weather-main">{weatherdtls.weather[0].main}</span>
             <img className="weather-icon" src={iconurl} alt="weather-icon" />
             <span className="weather-description">
               {" "}
-              {data.weather[0].description}
+              {weatherdtls.weather[0].description}
             </span>
           </div>
           <div className="weatherdetails">
@@ -41,8 +41,8 @@ function DisplayWeather(props) {
                     </td>
                     <td>
                       <span>
-                        {Math.floor(data.main.temp_max - 273.15)}/
-                        {Math.floor(data.main.temp_min - 273.15)}
+                        {Math.floor(weatherdtls.main.temp_max)}/
+                        {Math.floor(weatherdtls.main.temp_min)}
                       </span>
                     </td>
                   </tr>
@@ -51,7 +51,7 @@ function DisplayWeather(props) {
                       <h4>Humidity</h4>
                     </td>
                     <td>
-                      <span>{data.main.humidity} %</span>
+                      <span>{weatherdtls.main.humidity} %</span>
                     </td>
                   </tr>
                   <tr>
@@ -59,7 +59,7 @@ function DisplayWeather(props) {
                       <h4>Pressure</h4>
                     </td>
                     <td>
-                      <span>{data.main.pressure} hPa</span>
+                      <span>{weatherdtls.main.pressure} hPa</span>
                     </td>
                   </tr>
                   <tr>
@@ -67,7 +67,7 @@ function DisplayWeather(props) {
                       <h4>Visibility</h4>
                     </td>
                     <td>
-                      <span>{data.visibility / 1000} Km</span>
+                      <span>{weatherdtls.visibility / 1000} Km</span>
                     </td>
                   </tr>
                 </tbody>
@@ -83,7 +83,7 @@ function DisplayWeather(props) {
                     </td>
                     <td>
                       <span>
-                        {Math.floor((data.wind.speed * 18) / 5)} km/hr
+                        {Math.floor((weatherdtls.wind.speed * 18) / 5)} km/hr
                       </span>
                     </td>
                   </tr>
@@ -93,7 +93,7 @@ function DisplayWeather(props) {
                     </td>
                     <td>
                       <span>
-                        {data.wind.deg}
+                        {weatherdtls.wind.deg}
                         <sup>o</sup> deg
                       </span>
                     </td>
@@ -104,7 +104,7 @@ function DisplayWeather(props) {
                     </td>
                     <td>
                       <span>
-                        {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}
+                        {new Date(weatherdtls.sys.sunrise * 1000).toLocaleTimeString()}
                       </span>
                     </td>
                   </tr>
@@ -114,7 +114,7 @@ function DisplayWeather(props) {
                     </td>
                     <td>
                       <span>
-                        {new Date(data.sys.sunset * 1000).toLocaleTimeString()}
+                        {new Date(weatherdtls.sys.sunset * 1000).toLocaleTimeString()}
                       </span>
                     </td>
                   </tr>
@@ -125,7 +125,7 @@ function DisplayWeather(props) {
         </React.Fragment>
       ) : (
         <div className="maincard">
-          <h2>{data.message}</h2>
+          <h2>{weatherdtls.message}</h2>
         </div>
       )}
     </div>

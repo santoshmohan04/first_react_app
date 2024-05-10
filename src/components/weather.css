@@ -36,6 +36,10 @@
   color: whitesmoke;
 }
 
+.getweather:disabled {
+  cursor:not-allowed;
+}
+
 .weather .getweather:hover {
   background: transparent;
   color: black;

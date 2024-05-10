@@ -8,6 +8,7 @@ h3 {
 
 #cities {
   border-style: groove;
+  height: 600px;
   padding-top: 10px;
 }
 

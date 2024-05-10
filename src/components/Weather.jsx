@@ -1,81 +1,66 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCityWeatherData, clearAllCities } from "../redux";
 import DisplayWeather from "./DisplayWeather";
 import "./weather.css";
 
 function Weather() {
-  const [weather, setWeather] = useState([]);
   const [form, setForm] = useState({
-    city: null,
-    country: null,
-    alert: null,
+    city: '',
+    country: '',
+    alert: '',
   });
+  const dispatch = useDispatch();
+  const weatherdtls = useSelector(state => state.vatavaran.data);
+  const errMsg = useSelector(state => state.vatavaran.error);
 
-  const APIKEY = "d4594364698122bfd1c4b3eb5f2ff19f";
-  async function weatherData(e) {
+  React.useEffect(() => {
+      if (errMsg !== '') {
+        setForm({ ...form, alert: errMsg });
+      }
+  }, [errMsg, form]);
+
+
+  function weatherData(e) {
     e.preventDefault();
-    if (!form.city) {
+    if (form.city === '') {
       setForm({ ...form, alert: "Add City" });
     } else {
-      const data = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${form.city},${form.country}&APPID=${APIKEY}`
-      )
-        .then((res) => res.json())
-        .then(
-          (data) => {
-            return data;
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      if (data.cod === "404" && data.message === "city not found") {
-        setForm({ ...form, alert: data.message });
-      } else {
-        setWeather({ data: data });
-        setForm({ ...form, alert: null });
-      }
+      dispatch(clearAllCities());
+      dispatch(fetchCityWeatherData(form.city));
     }
   }
 
-  const handleChange = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-
-    if (name === "city") {
-      setForm({ ...form, city: value });
-    }
-    if (name === "country") {
-      setForm({ ...form, country: value });
-    }
-  };
+  
   return (
     <div className="weather">
       <p className="title">Weather App</p>
       {form.alert ? <p className="text-danger">{form.alert}</p> : null}
-      <form className="d-flex justify-content-center">
+      <form className="d-flex justify-content-center" onSubmit={(e) => weatherData(e)}>
         <input
           type="text"
           placeholder="city"
           name="city"
-          onChange={(e) => handleChange(e)}
+          value={form.city}
+          onChange={(e) => setForm({ ...form, city: e.target.value })}
         />
-        &nbsp; &nbsp; &nbsp;&nbsp;
         <input
           type="text"
           placeholder="Country"
           name="country"
-          onChange={(e) => handleChange(e)}
+          value={form.country}
+          onChange={(e) => setForm({ ...form, country: e.target.value })}
         />
-        <button className="getweather" onClick={(e) => weatherData(e)}>
+        <button className="getweather" type="submit" disabled={form.city === '' || form.country === ''}>
           Submit
         </button>
       </form>
 
-      {weather.data !== undefined ? (
+      {weatherdtls && (
         <div>
-          <DisplayWeather data={weather.data} />
+          <DisplayWeather weatherdtls={weatherdtls}/>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
